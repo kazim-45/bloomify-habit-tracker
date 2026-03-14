@@ -50,6 +50,7 @@ Then simply open `index.html` in your browser. That's it.
 
 > **Tip:** Use a local server like VS Code's **Live Server** extension for the best experience.
 
+Or simply go to `https://kazim-45.github.io/bloomify-habit-tracker` to access immediately.
 ---
 
 ## 🗂 Project Structure
