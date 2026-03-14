@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Bloomify — A beautiful habit tracker where your daily habits grow a virtual plant. Complete tasks, water your plant, and watch it bloom.">
+  <title>Bloomify — Habit Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Floating particles background -->
+  <div class="particles" id="particles" aria-hidden="true"></div>
+
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="logo">
+        <svg class="logo-icon" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 22V8"/>
+          <path d="M5 12s2-5 7-5 7 5 7 5"/>
+          <path d="M9 3c0 0 1.5 2 3 2s3-2 3-2"/>
+          <circle cx="12" cy="6" r="3" fill="currentColor" opacity="0.3"/>
+        </svg>
+        <h1>Bloomify</h1>
+      </div>
+      <div class="header-meta">
+        <div class="date-display" id="dateDisplay"></div>
+        <div class="streak-badge" id="streakBadge" title="Current streak">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+          </svg>
+          <span id="streakCount">0</span> day streak
+        </div>
+      </div>
+    </header>
+
+    <!-- Plant Section -->
+    <section class="plant-section" id="plantSection">
+      <div class="plant-glow" id="plantGlow"></div>
+      <div class="plant-container" id="plantContainer">
+        <!-- Stage 0: Empty pot / seed -->
+        <svg class="plant-svg" id="plantSvg" viewBox="0 0 200 280" xmlns="http://www.w3.org/2000/svg">
+          <!-- Pot -->
+          <defs>
+            <linearGradient id="potGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#c97346"/>
+              <stop offset="100%" stop-color="#8b4513"/>
+            </linearGradient>
+            <linearGradient id="potRim" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#d4885a"/>
+              <stop offset="100%" stop-color="#b5693d"/>
+            </linearGradient>
+            <linearGradient id="soilGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#5c3a1e"/>
+              <stop offset="100%" stop-color="#3e2712"/>
+            </linearGradient>
+            <linearGradient id="stemGrad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#4a7c3f"/>
+              <stop offset="50%" stop-color="#5d9e4e"/>
+              <stop offset="100%" stop-color="#4a7c3f"/>
+            </linearGradient>
+            <radialGradient id="flowerCenter" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#ffe066"/>
+              <stop offset="100%" stop-color="#f0c040"/>
+            </radialGradient>
+            <filter id="glow">
+              <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+              <feMerge>
+                <feMergeNode in="coloredBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+          </defs>
+
+          <!-- Pot Body -->
+          <path d="M55,210 L65,260 L135,260 L145,210 Z" fill="url(#potGrad)" class="pot-body"/>
+          <!-- Pot Rim -->
+          <rect x="48" y="203" width="104" height="12" rx="3" fill="url(#potRim)" class="pot-rim"/>
+          <!-- Soil -->
+          <ellipse cx="100" cy="210" rx="45" ry="8" fill="url(#soilGrad)" class="soil"/>
+
+          <!-- Seed (Stage 0) -->
+          <g class="plant-stage plant-stage-0" opacity="0">
+            <ellipse cx="100" cy="206" rx="5" ry="3.5" fill="#8B6914" transform="rotate(-15, 100, 206)"/>
+          </g>
+
+          <!-- Sprout (Stage 1) -->
+          <g class="plant-stage plant-stage-1" opacity="0">
+            <path d="M100,205 Q100,190 100,185" stroke="url(#stemGrad)" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <path d="M100,192 Q108,185 112,178" stroke="#5d9e4e" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <ellipse cx="114" cy="176" rx="6" ry="4" fill="#6ab650" transform="rotate(-30, 114, 176)"/>
+          </g>
+
+          <!-- Small Plant (Stage 2) -->
+          <g class="plant-stage plant-stage-2" opacity="0">
+            <path d="M100,205 Q100,170 100,155" stroke="url(#stemGrad)" stroke-width="4" fill="none" stroke-linecap="round"/>
+            <!-- Left leaf -->
+            <path d="M100,180 Q85,170 78,162" stroke="#5d9e4e" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <path d="M78,162 Q82,168 88,172 Q80,166 78,162Z" fill="#6ab650"/>
+            <!-- Right leaf -->
+            <path d="M100,170 Q115,160 122,152" stroke="#5d9e4e" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <path d="M122,152 Q118,158 112,162 Q120,156 122,152Z" fill="#6ab650"/>
+            <!-- Top leaves -->
+            <ellipse cx="94" cy="153" rx="8" ry="5" fill="#72c25b" transform="rotate(30, 94, 153)"/>
+            <ellipse cx="106" cy="153" rx="8" ry="5" fill="#72c25b" transform="rotate(-30, 106, 153)"/>
+          </g>
+
+          <!-- Medium Plant (Stage 3) -->
+          <g class="plant-stage plant-stage-3" opacity="0">
+            <path d="M100,205 Q99,160 100,125" stroke="url(#stemGrad)" stroke-width="5" fill="none" stroke-linecap="round"/>
+            <!-- Lower left leaf -->
+            <path d="M100,185 Q80,175 70,165" stroke="#4a7c3f" stroke-width="2" fill="none"/>
+            <path d="M70,165 Q73,172 80,178 Q72,170 70,165Z" fill="#5d9e4e"/>
+            <!-- Lower right leaf -->
+            <path d="M100,175 Q120,165 130,155" stroke="#4a7c3f" stroke-width="2" fill="none"/>
+            <path d="M130,155 Q127,162 120,168 Q128,160 130,155Z" fill="#5d9e4e"/>
+            <!-- Upper left leaf -->
+            <path d="M100,155 Q85,140 75,130" stroke="#5d9e4e" stroke-width="2" fill="none"/>
+            <ellipse cx="73" cy="128" rx="10" ry="6" fill="#6ab650" transform="rotate(40, 73, 128)"/>
+            <!-- Upper right leaf -->
+            <path d="M100,145 Q115,130 125,120" stroke="#5d9e4e" stroke-width="2" fill="none"/>
+            <ellipse cx="127" cy="118" rx="10" ry="6" fill="#6ab650" transform="rotate(-40, 127, 118)"/>
+            <!-- Top bud -->
+            <ellipse cx="100" cy="123" rx="7" ry="5" fill="#72c25b"/>
+            <ellipse cx="96" cy="121" rx="5" ry="7" fill="#6ab650" transform="rotate(15, 96, 121)"/>
+            <ellipse cx="104" cy="121" rx="5" ry="7" fill="#6ab650" transform="rotate(-15, 104, 121)"/>
+          </g>
+
+          <!-- Full Bloom (Stage 4) -->
+          <g class="plant-stage plant-stage-4" opacity="0">
+            <path d="M100,205 Q99,150 100,95" stroke="url(#stemGrad)" stroke-width="5.5" fill="none" stroke-linecap="round"/>
+            <!-- Lower leaves -->
+            <path d="M100,190 Q75,178 65,165" stroke="#4a7c3f" stroke-width="2.5" fill="none"/>
+            <ellipse cx="62" cy="162" rx="12" ry="6" fill="#5d9e4e" transform="rotate(40, 62, 162)"/>
+            <path d="M100,180 Q125,168 135,155" stroke="#4a7c3f" stroke-width="2.5" fill="none"/>
+            <ellipse cx="138" cy="152" rx="12" ry="6" fill="#5d9e4e" transform="rotate(-40, 138, 152)"/>
+            <!-- Mid leaves -->
+            <path d="M100,160 Q78,145 68,132" stroke="#5d9e4e" stroke-width="2" fill="none"/>
+            <ellipse cx="65" cy="129" rx="11" ry="6" fill="#6ab650" transform="rotate(35, 65, 129)"/>
+            <path d="M100,150 Q122,135 132,122" stroke="#5d9e4e" stroke-width="2" fill="none"/>
+            <ellipse cx="135" cy="119" rx="11" ry="6" fill="#6ab650" transform="rotate(-35, 135, 119)"/>
+            <!-- Upper leaves -->
+            <path d="M100,130 Q85,115 78,105" stroke="#5d9e4e" stroke-width="2" fill="none"/>
+            <ellipse cx="76" cy="103" rx="9" ry="5" fill="#72c25b" transform="rotate(30, 76, 103)"/>
+            <path d="M100,120 Q115,105 122,95" stroke="#5d9e4e" stroke-width="2" fill="none"/>
+            <ellipse cx="124" cy="93" rx="9" ry="5" fill="#72c25b" transform="rotate(-30, 124, 93)"/>
+            <!-- Flower -->
+            <g class="flower" filter="url(#glow)">
+              <ellipse cx="100" cy="80" rx="12" ry="7" fill="#ff8fab" transform="rotate(0, 100, 80)" opacity="0.9"/>
+              <ellipse cx="100" cy="80" rx="12" ry="7" fill="#ff6b8a" transform="rotate(60, 100, 80)" opacity="0.85"/>
+              <ellipse cx="100" cy="80" rx="12" ry="7" fill="#ff8fab" transform="rotate(120, 100, 80)" opacity="0.9"/>
+              <ellipse cx="100" cy="80" rx="12" ry="7" fill="#ff6b8a" transform="rotate(180, 100, 80)" opacity="0.85"/>
+              <ellipse cx="100" cy="80" rx="12" ry="7" fill="#ff8fab" transform="rotate(240, 100, 80)" opacity="0.9"/>
+              <ellipse cx="100" cy="80" rx="12" ry="7" fill="#ff6b8a" transform="rotate(300, 100, 80)" opacity="0.85"/>
+              <circle cx="100" cy="80" r="6" fill="url(#flowerCenter)"/>
+            </g>
+            <!-- Small side flowers -->
+            <g class="mini-flower" transform="translate(65, 125)" filter="url(#glow)">
+              <ellipse cx="0" cy="0" rx="5" ry="3" fill="#ffb3c6" transform="rotate(0)"/>
+              <ellipse cx="0" cy="0" rx="5" ry="3" fill="#ffb3c6" transform="rotate(72)"/>
+              <ellipse cx="0" cy="0" rx="5" ry="3" fill="#ffb3c6" transform="rotate(144)"/>
+              <ellipse cx="0" cy="0" rx="5" ry="3" fill="#ffb3c6" transform="rotate(216)"/>
+              <ellipse cx="0" cy="0" rx="5" ry="3" fill="#ffb3c6" transform="rotate(288)"/>
+              <circle cx="0" cy="0" r="3" fill="#ffe066"/>
+            </g>
+            <g class="mini-flower" transform="translate(135, 115)" filter="url(#glow)">
+              <ellipse cx="0" cy="0" rx="5" ry="3" fill="#c9b3ff" transform="rotate(0)"/>
+              <ellipse cx="0" cy="0" rx="5" ry="3" fill="#c9b3ff" transform="rotate(72)"/>
+              <ellipse cx="0" cy="0" rx="5" ry="3" fill="#c9b3ff" transform="rotate(144)"/>
+              <ellipse cx="0" cy="0" rx="5" ry="3" fill="#c9b3ff" transform="rotate(216)"/>
+              <ellipse cx="0" cy="0" rx="5" ry="3" fill="#c9b3ff" transform="rotate(288)"/>
+              <circle cx="0" cy="0" r="3" fill="#ffe066"/>
+            </g>
+          </g>
+        </svg>
+
+        <!-- Water drops animation container -->
+        <div class="water-drops" id="waterDrops" aria-hidden="true"></div>
+      </div>
+
+      <!-- Progress ring -->
+      <div class="progress-info">
+        <div class="progress-ring-container">
+          <svg class="progress-ring" width="64" height="64" viewBox="0 0 64 64">
+            <circle class="progress-ring-bg" cx="32" cy="32" r="28" fill="none" stroke-width="4"/>
+            <circle class="progress-ring-fill" id="progressRing" cx="32" cy="32" r="28" fill="none" stroke-width="4"
+              stroke-dasharray="175.93" stroke-dashoffset="175.93" transform="rotate(-90 32 32)"/>
+          </svg>
+          <span class="progress-percent" id="progressPercent">0%</span>
+        </div>
+        <div class="progress-label">
+          <span id="completedCount">0</span> / <span id="totalCount">0</span> habits
+        </div>
+      </div>
+
+      <!-- Stage label -->
+      <div class="stage-label" id="stageLabel">Plant a seed by adding habits</div>
+    </section>
+
+    <!-- Habits Section -->
+    <section class="habits-section">
+      <div class="habits-header">
+        <h2>Today's Habits</h2>
+        <button class="btn-add" id="btnAdd" title="Add new habit" aria-label="Add new habit">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="12" y1="5" x2="12" y2="19"/>
+            <line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Add habit form (hidden by default) -->
+      <div class="add-form" id="addForm">
+        <input type="text" id="habitInput" class="habit-input" placeholder="e.g., Drink 8 glasses of water" maxlength="60" autocomplete="off"/>
+        <div class="add-form-actions">
+          <button class="btn-cancel" id="btnCancel">Cancel</button>
+          <button class="btn-save" id="btnSave">Add Habit</button>
+        </div>
+      </div>
+
+      <!-- Habit list -->
+      <ul class="habit-list" id="habitList">
+        <!-- Habits rendered by JS -->
+      </ul>
+
+      <!-- Empty state -->
+      <div class="empty-state" id="emptyState">
+        <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.4">
+          <path d="M12 22V8"/>
+          <path d="M5 12s2-5 7-5 7 5 7 5"/>
+          <circle cx="12" cy="6" r="3"/>
+        </svg>
+        <p>No habits yet.<br>Tap <strong>+</strong> to plant your first seed!</p>
+      </div>
+    </section>
+
+    <footer class="app-footer">
+      <p>Bloomify &mdash; Grow better habits, one day at a time 🌱</p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
