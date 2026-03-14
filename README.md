@@ -2,7 +2,7 @@
 
 > *Grow better habits, one day at a time.*
 
-Bloomify is a beautiful, lightweight habit tracker that turns your daily routines into something alive. Every habit you complete waters a virtual plant — watch it grow from a tiny seed all the way to full bloom as you build consistency.
+Bloomify is a beautiful, lightweight habit tracker that turns your daily routines into something alive. Every habit you complete waters a virtual plant. Watch it grow from a tiny seed all the way to full bloom as you build consistency.
 
 ![Bloomify Preview](https://img.shields.io/badge/status-live-brightgreen?style=flat-square) ![HTML](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white) ![CSS](https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white) ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
 
@@ -49,13 +49,6 @@ cd bloomify-habit-tracker
 Then simply open `index.html` in your browser. That's it.
 
 > **Tip:** Use a local server like VS Code's **Live Server** extension for the best experience.
-
-### Deploy to GitHub Pages
-
-1. Go to your repository on GitHub
-2. Navigate to **Settings → Pages**
-3. Under **Source**, select `main` branch and `/ (root)` folder
-4. Click **Save** — your app will be live at `https://kazim-45.github.io/bloomify-habit-tracker`
 
 ---
 
